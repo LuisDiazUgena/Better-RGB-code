@@ -28,6 +28,6 @@ ARDUINO PIN | RGB PIN
 
 ## License
 
-Works under **Creative Commons Attribution ShareAlike 3.0**.
+Works under **CC-BY-SA**.
 
 ![](http://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/CC-BY-SA_icon.svg/2000px-CC-BY-SA_icon.svg.png)
