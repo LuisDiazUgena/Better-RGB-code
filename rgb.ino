@@ -1,9 +1,12 @@
 
 int redPin = 6, greenPin = 5, bluePin = 3;
 int delayLed = 10; // Tiempo que pasará entre cada cambio de LED (ms)
-int red_old = 0, green_old = 0, blue_old = 0;
+
+// Variables que almacenarán el ultimo color de cada uno de los leds
+int red_old = 0, green_old = 0, blue_old = 0; 
 
 void setup() {
+
   // Iniciar el puerto serie.
   Serial.begin(9600);
   // Marcamos como salidas los pines utilizados.
@@ -11,14 +14,14 @@ void setup() {
   pinMode(greenPin, OUTPUT);
   pinMode(bluePin, OUTPUT);
 
-  Serial.println("¡Listo!");
+  Serial.println("¡Preparado!");
 }
 
 void loop() {
 
   // Si hay informacion disponible en el puerto serie la utilizamos:
   while (Serial.available() > 0) {
-
+    
     int red = 0, green = 0, blue = 0;
 
     // busca la siguiente cadena de números enteros valida:
@@ -29,14 +32,14 @@ void loop() {
     blue = Serial.parseInt();
 
     // busca el caracter de fin de linea. Indica al programa que se ha terminado de introducir datos.
-    // Si no utilizas el IDE de arduino u otro ide que permita incluir el formato
+    // Si utilizas el IDE de arduino u otro ide que permita incluir el formato
     // de nueva linea al enviar datos por el monitor serie, elimina el comentario
-    // de la linea 37 y comenta la linea 36.
+    // de la linea 36 y comenta la linea 37.
+    
+    
+  if (Serial.read() == '\n' || Serial.read()=='*'){
 
-    if (Serial.read() == '\n') {
-      //if (Serial.read()=='*'){
       // Con constrain nos aseguramos de que el valor esté en el rango del pwm
-      // if you're using a common-cathode LED, just use "constrain(color, 0, 255);"
       //Para leds de anodo común utiliza, para rojo, por ejemplo: red = 255 - constrain(red, 0, 255);
       red = constrain(red, 0, 255);
       green = constrain(green, 0, 255);
@@ -51,7 +54,7 @@ void loop() {
       fade(redPin, red, red_old);
       fade(greenPin, green, green_old);
       fade(bluePin, blue, blue_old);
-
+      
       Serial.println("Color conseguido");
       //Almacenamos los datos de color anteriores.
       red_old = red;
@@ -79,4 +82,17 @@ void fade(int pin, int newValue, int aktValue) {
       delay(delayLed);
     }
   }
+  
+  //Si se utiliza analogWrite cuando el valor que estamos escribiendo es 0,
+  //se mantiene una pequeña tension en el led que hace que brille ligeramente.
+  //Si incluimos las siguientes lineas de codigo evitaremos este problema.
+  
+  if (newValue == 0){
+    digitalWrite(pin,LOW);
+  }
+
+  // Escribimos esta linea de codigo después de los bucles for para que la transición se 
+  // realice de manera suave y una vez que haya llegado al punto mínimo de analogWrite
+  // se apague y no se note la transición.
+  
 }
