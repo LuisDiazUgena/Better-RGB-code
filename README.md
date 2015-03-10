@@ -14,10 +14,8 @@ Based on comon cathode led configuration.
 
 ## Connections
 
-ARDUINO PIN | RGB PIN
-	6	Red
-	5	Green
-	3	Blue
+Red = 6, Green = 5, Blue = 3.
+GND Led = GND Arduino.
 
 ## Usage
 
