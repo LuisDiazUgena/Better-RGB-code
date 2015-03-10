@@ -34,10 +34,10 @@ void loop() {
     // busca el caracter de fin de linea. Indica al programa que se ha terminado de introducir datos.
     // Si utilizas el IDE de arduino u otro ide que permita incluir el formato
     // de nueva linea al enviar datos por el monitor serie, elimina el comentario
-    // de la linea 36 y comenta la linea 37.
+    // de la linea 39 y comenta la linea 40.
     
-    
-  if (Serial.read() == '\n' || Serial.read()=='*'){
+    if (Serial.read() == '\n'){
+   // if (Serial.read() == '*'){
 
       // Con constrain nos aseguramos de que el valor esté en el rango del pwm
       //Para leds de anodo común utiliza, para rojo, por ejemplo: red = 255 - constrain(red, 0, 255);
@@ -94,5 +94,5 @@ void fade(int pin, int newValue, int aktValue) {
   // Escribimos esta linea de codigo después de los bucles for para que la transición se 
   // realice de manera suave y una vez que haya llegado al punto mínimo de analogWrite
   // se apague y no se note la transición.
-  
+
 }
