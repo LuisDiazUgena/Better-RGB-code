@@ -45,7 +45,7 @@ void loop() {
       green = constrain(green, 0, 255);
       blue = constrain(blue, 0, 255);
 
-      // print the three numbers in one string as hexadecimal:
+      //Imprime los tres numeros como un string en hexadecimal:
       Serial.print(red, HEX);
       Serial.print(green, HEX);
       Serial.println(blue, HEX);
@@ -72,27 +72,14 @@ void fade(int pin, int newValue, int aktValue) {
   //  2 - El nuevo valor es menor que el valor actual, por lo que hay que reducirlo
 
   if (newValue > aktValue) {
-    for (int i = aktValue; i < newValue; i++) {
+    for (int i = aktValue; i <= newValue; i++) {
       analogWrite(pin, i);
       delay(delayLed);
     }
   } else if (newValue < aktValue) {
-    for (int i = aktValue; i > newValue; i--) {
+    for (int i = aktValue; i >= newValue; i--) {
       analogWrite(pin, i);
       delay(delayLed);
     }
   }
-  
-  //Si se utiliza analogWrite cuando el valor que estamos escribiendo es 0,
-  //se mantiene una pequeña tension en el led que hace que brille ligeramente.
-  //Si incluimos las siguientes lineas de codigo evitaremos este problema.
-  
-  if (newValue == 0){
-    digitalWrite(pin,LOW);
   }
-
-  // Escribimos esta linea de codigo después de los bucles for para que la transición se 
-  // realice de manera suave y una vez que haya llegado al punto mínimo de analogWrite
-  // se apague y no se note la transición.
-
-}
